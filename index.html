@@ -1,177 +1,244 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="scroll-smooth">
 
 <head>
-     <meta charset="UTF-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <title>10 живописних місць біля Монпельє</title>
-     <script src="https://cdn.tailwindcss.com"></script>
-     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10 живописних місць біля Монпельє</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    };
+  </script>
+
+  <!-- Leaflet для мапи -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Кнопка мапи -->
+  <style>
+    #toMapBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2563eb;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      transition: opacity 0.3s ease;
+    }
+
+    #toMapBtn.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .location-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+  </style>
 </head>
 
-<body class="bg-gray-100 text-gray-900 font-sans">
-     <div class="max-w-6xl mx-auto px-4 py-6">
-          <h1 class="text-3xl md:text-5xl font-bold text-center text-blue-800 mb-6">
-               🏞 10 живописних місць біля Монпельє
-          </h1>
+<body class="font-sans transition-colors duration-500 bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white">
 
-          <!-- Інтерактивна мапа -->
-          <div id="map" class="w-full h-[400px] rounded-xl shadow mb-8"></div>
+  <div class="max-w-6xl mx-auto px-4 py-6">
+    <h1 class="text-3xl md:text-5xl font-bold text-center text-blue-800 dark:text-blue-400 mb-6">
+      🏞 10 живописних місць біля Монпельє
+    </h1>
 
-          <!-- Список локацій -->
-          <div class="space-y-12">
+    <div id="map" class="w-full h-[400px] rounded-xl shadow mb-8"></div>
+    <button id="toMapBtn" class="hidden" onclick="scrollToMap()">Мапа</button>
+    <div id="locations" class="space-y-12"></div>
+  </div>
 
-               <!-- 1. Cirque de Mourèze -->
-               <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">1. Cirque de Mourèze</h2>
-                    <img src="img/1_Cirque_de_Moureze.png" class="rounded-lg w-full mb-4 shadow"
-                         alt="Cirque de Moureze">
-                    <p><strong>📍</strong> <a href="https://maps.app.goo.gl/JoVH89HN7mmGMmSP9"
-                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-                    <p><strong>🚗</strong> Парковка біля входу</p>
-                    <p><strong>🚶‍♂️</strong> Кам’янистий маршрут зі скелями</p>
-                    <p><strong>🚲</strong> Оренда в Clermont‑l’Hérault</p>
-               </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const locations = [
+        {
+          id: "moureze",
+          title: "Cirque de Mourèze",
+          description: "Унікальні скельні ландшафти, що нагадують декорації до фільму про Марс.",
+          map: "https://maps.google.com/?q=43.6182,3.3339",
+          geo: [43.6187, 3.3365],
+          parking: "https://maps.google.com/?q=43.6182,3.3339",
+          walk: "Кам’янистий маршрут зі скелями",
+          bike: "Оренда в Clermont‑l’Hérault (~€20/день)",
+          nearby: "Старе містечко Mourèze, Belvédère du Mourèze",
+          image: "img/1_Cirque_de_Moureze.png"
+        },
+        {
+          id: "canal",
+          title: "Canal du Midi",
+          description: "Ідеальна прогулянка вздовж води з тінню дерев і човнами.",
+          map: "https://maps.google.com/?q=43.5991,3.9042",
+          geo: [43.5904, 3.8955],
+          parking: "https://maps.google.com/?q=43.5991,3.9042",
+          walk: "Прогулянка вздовж каналу",
+          bike: "Smile Ebike (~€15/день)",
+          nearby: "Район Antigone, Lez Market",
+          image: "img/2_Canal_du_Midi.png"
+        },
+        {
+          id: "mejean",
+          title: "Étang du Méjean",
+          description: "Заповідна зона для спостереження за птахами та прогулянок серед очеретів.",
+          map: "https://maps.google.com/?q=43.5299,3.9220",
+          geo: [43.5299, 3.9220],
+          parking: "https://maps.google.com/?q=43.5296,3.9231",
+          walk: "Прогулянка дерев’яними настилами",
+          bike: "Велопрокат біля Pérols (~€10/день)",
+          nearby: "Пляж Carnon, Орнітологічний центр",
+          image: "img/3_Étang_du_Méjean.png"
+        },
+        {
+          id: "palavasiens",
+          title: "Étangs Palavasiens",
+          description: "Чудове місце для пташиного спостереження біля моря.",
+          map: "https://maps.google.com/?q=43.5309,3.9151",
+          geo: [43.5309, 3.9151],
+          parking: "https://maps.google.com/?q=43.5325,3.9123",
+          walk: "Набережні, спостереження за птахами",
+          bike: "Palavas Location Vélo (~€12/день)",
+          nearby: "Cabanes de Pérols, море",
+          image: "img/4_Étangs_Palavasiens.png"
+        },
+        {
+          id: "heric",
+          title: "Gorges d'Héric",
+          description: "Вражаюча ущелина з каскадами та природними ваннами.",
+          map: "https://maps.google.com/?q=43.5826,2.9337",
+          geo: [43.5826, 2.9337],
+          parking: "https://maps.google.com/?q=43.5817,2.9340",
+          walk: "Хайкінг серед водоспадів",
+          bike: "Mons-la-Trivalle (~€18/день)",
+          nearby: "Річка Orb, село Mons",
+          image: "img/5_Gorges_d_Heric.png"
+        },
+        {
+          id: "salagou",
+          title: "Lac du Salagou",
+          description: "Мальовниче озеро серед червоних ґрунтів, ідеальне для велопрогулянок.",
+          map: "https://maps.google.com/?q=43.6521,3.3874",
+          geo: [43.6521, 3.3874],
+          parking: "https://maps.google.com/?q=43.6435,3.3862",
+          walk: "Піші маршрути навколо озера",
+          bike: "Ozone VTT (~€20/день)",
+          nearby: "Clermont-l’Hérault, базальтові скелі",
+          image: "img/6_Lac_du_Salagou.png"
+        },
+        {
+          id: "saintloup",
+          title: "Pic Saint-Loup",
+          description: "Ікона регіону з панорамою на виноградники та Середземне море.",
+          map: "https://maps.google.com/?q=43.7774,3.8502",
+          geo: [43.7774, 3.8502],
+          parking: "https://maps.google.com/?q=43.7790,3.8487",
+          walk: "Підйом 1–2 години, вершина з краєвидом",
+          bike: "Smile Ebike (~€15/день)",
+          nearby: "Виноробні, Saint-Mathieu-de-Tréviers",
+          image: "img/7_Pic_Saint-Loup.png"
+        },
+        {
+          id: "vis",
+          title: "Les Cascades de la Vis",
+          description: "Водоспади з кришталевою водою та можливістю купання.",
+          map: "https://maps.google.com/?q=43.8847,3.5767",
+          geo: [43.8847, 3.5767],
+          parking: "https://maps.google.com/?q=43.8825,3.5740",
+          walk: "Маршрут вздовж річки до водоспадів",
+          bike: "Ganges (~€15/день)",
+          nearby: "Saint-Laurent-le-Minier, водоспад Vis",
+          image: "img/8_Les_Cascades_de_la_Vis.png"
+        },
+        {
+          id: "saintsauveur",
+          title: "Bois de Saint-Sauveur",
+          description: "Сосновий ліс для релаксу, пікніків і неспішних прогулянок.",
+          map: "https://maps.google.com/?q=43.7545,3.5309",
+          geo: [43.7545, 3.5309],
+          parking: "https://maps.google.com/?q=43.7550,3.5310",
+          walk: "Природна стежка у сосновому лісі",
+          bike: "Підходить для MTB",
+          nearby: "Le Triadou, Pic Saint-Loup",
+          image: "img/9_Le_Bois_de_Saint-Sauveur.png"
+        },
+        {
+          id: "grandmont",
+          title: "Prieuré Saint-Michel de Grandmont",
+          description: "Середньовічний монастир з парком і історичними будівлями.",
+          map: "https://maps.google.com/?q=43.6302,3.3163",
+          geo: [43.6302, 3.3163],
+          parking: "https://maps.google.com/?q=43.6310,3.3150",
+          walk: "Прогулянка історичною територією",
+          bike: "Lodève Vélos (~€12/день)",
+          nearby: "Lodève, археологічна стежка",
+          image: "img/10_Prieuré_Saint-Michel_de_Grandmont.png"
+        }
+      ];
 
-               <!-- 2. Canal du Midi -->
-               <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">2. Canal du Midi</h2>
-                    <img src="img/2_Canal_du_Midi.png" class="rounded-lg w-full mb-4 shadow" alt="Canal du Midi">
-                    <p><strong>📍</strong> <a href="https://www.google.com/maps/place/Canal+du+Midi/@43.5904,3.8955,14z"
-                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-                    <p><strong>🚗</strong> Парковка Port Marianne</p>
-                    <p><strong>🚶‍♂️</strong> Прогулянка вздовж каналу</p>
-                    <p><strong>🚲</strong> Smile Ebike (Монпельє)</p>
-               </div>
+      const container = document.getElementById("locations");
+      locations.forEach((loc, i) => {
+        const div = document.createElement("div");
+        div.id = loc.id;
+        div.className = "bg-white dark:bg-gray-800 rounded-xl shadow-md p-6";
+        div.innerHTML = `
+          <img src="${loc.image}" alt="${loc.title}" class="location-image mb-4 shadow-md" />
+          <h2 class="text-2xl text-blue-700 dark:text-blue-400 font-semibold mb-2">${i + 1}. ${loc.title}</h2>
+          <p class="italic mb-2">${loc.description}</p>
+          <p><strong>📍</strong> <a href="${loc.map}" class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
+          <p><strong>🅿️</strong> <a href="${loc.parking}" class="text-blue-600 underline" target="_blank">Геолокація паркування</a></p>
+          <p><strong>🚶‍♂️</strong> ${loc.walk}</p>
+          <p><strong>🚲</strong> ${loc.bike}</p>
+          <p><strong>🌟</strong> Рекомендовано: ${loc.nearby}</p>
+        `;
+        container.appendChild(div);
+      });
 
-               <!-- 3. Étang du Méjean -->
-               <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">3. Étang du Méjean</h2>
-                    <img src="img/3_Étang_du_Méjean.png" class="rounded-lg w-full mb-4 shadow" alt="Étang du Méjean">
-                    <p><strong>📍</strong> <a
-                              href="https://www.google.com/maps/place/%C3%89tang+du+M%C3%A9jean/@43.5514,3.9062,15z"
-                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-                    <p><strong>🚗</strong> Maison de la Nature</p>
-                    <p><strong>🚶‍♂️</strong> Дерев’яні містки через болота</p>
-                    <p><strong>🚲</strong> Rent a Bike Carnon</p>
-               </div>
+      const map = L.map('map').setView([43.611, 3.877], 9);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
 
-               <!-- 4. Étangs Palavasiens -->
-               <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">4. Étangs Palavasiens</h2>
-                    <img src="img/4_Étangs_Palavasiens.png" class="rounded-lg w-full mb-4 shadow"
-                         alt="Étangs Palavasiens">
-                    <p><strong>📍</strong> <a
-                              href="https://www.google.com/maps/place/%C3%89tangs+Palavasiens/@43.5309,3.9151,14z"
-                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-                    <p><strong>🚗</strong> Парковка біля Cabanes de Pérols</p>
-                    <p><strong>🚶‍♂️</strong> Набережні, огляд птахів</p>
-                    <p><strong>🚲</strong> Palavas Location Vélo</p>
-               </div>
+      locations.forEach(loc => {
+        const marker = L.marker(loc.geo).addTo(map);
+        marker.on('click', () => {
+          document.getElementById(loc.id).scrollIntoView({ behavior: 'smooth' });
+        });
+        marker.bindPopup(`<strong>${loc.title}</strong>`);
+      });
 
-               <!-- 5. Gorges d'Héric -->
-               <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">5. Gorges d'Héric</h2>
-                    <img src="img/5_Gorges_d_Heric.png" class="rounded-lg w-full mb-4 shadow" alt="Gorges d'Héric">
-                    <p><strong>📍</strong> <a href="https://maps.app.goo.gl/4ssGE9HaHeAVDnPH6"
-                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-                    <p><strong>🚗</strong> Parking Héric</p>
-                    <p><strong>🚶‍♂️</strong> Ущелина, хайкінг серед водоспадів</p>
-                    <p><strong>🚲</strong> Loueurs à Mons-la-Trivalle</p>
-               </div>
+      const toMapBtn = document.getElementById("toMapBtn");
+      window.addEventListener('scroll', () => {
+        const mapRect = document.getElementById("map").getBoundingClientRect();
+        toMapBtn.classList.toggle("hidden", mapRect.top > 0);
+      });
 
+      // 🧭 Кнопка прокрутки до мапи
+      window.scrollToMap = function () {
+        document.getElementById("map").scrollIntoView({ behavior: "smooth" });
+      };
 
-               <!-- 6. Lac du Salagou -->
-               <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">6. Lac du Salagou</h2>
-                    <img src="img/6_Lac_du_Salagou.png" class="rounded-lg w-full mb-4 shadow" alt="Lac du Salagou">
-                    <p><strong>📍</strong> <a
-                              href="https://www.google.com/maps/place/Lac+du+Salagou/@43.6521,3.3874,13z"
-                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-                    <p><strong>🚗</strong> Les Vailhés</p>
-                    <p><strong>🚶‍♂️</strong> Прогулянки та веломаршрути</p>
-                    <p><strong>🚲</strong> Ozone VTT</p>
-               </div>
-
-               <!-- 7. Pic Saint-Loup -->
-               <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">7. Pic Saint-Loup</h2>
-                    <img src="img/7_Pic_Saint-Loup.png" class="rounded-lg w-full mb-4 shadow" alt="Pic Saint-Loup">
-                    <p><strong>📍</strong> <a
-                              href="https://www.google.com/maps/place/Pic+Saint-Loup/@43.7774,3.8502,13z"
-                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-                    <p><strong>🚗</strong> Парковка Saint-Clément</p>
-                    <p><strong>🚶‍♂️</strong> Підйом 1–2 години, панорама</p>
-                    <p><strong>🚲</strong> Smile Ebike</p>
-               </div>
-
-               <!-- 8. Les Cascades de la Vis -->
-               <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">8. Les Cascades de la Vis</h2>
-                    <img src="img/8_Les_Cascades_de_la_Vis.png" class="rounded-lg w-full mb-4 shadow"
-                         alt="Les Cascades de la Vis">
-                    <p><strong>📍</strong>
-                         <a href="https://www.google.com/maps/place/Les+Cascades+de+la+Vis/@43.8847,3.5767,15z"
-                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a>
-                    </p>
-                    <p><strong>🚗</strong> Парковка біля Saint-Laurent-le-Minier</p>
-                    <p><strong>🚶‍♂️</strong> Прогулянка до водоспадів та купання</p>
-                    <p><strong>🚲</strong> Велодоріжки в напрямку Ganges</p>
-               </div>
-
-
-               <!-- 9. Bois de Saint-Sauveur -->
-               <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">9. Bois de Saint-Sauveur</h2>
-                    <img src="img/9_Le_Bois_de_Saint-Sauveur.png" class="rounded-lg w-full mb-4 shadow"
-                         alt="Bois de Saint-Sauveur">
-                    <p><strong>📍</strong>
-                         <a href="https://www.google.com/maps/place/Bois+de+Saint-Sauveur/@43.7545,3.5309,15z"
-                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a>
-                    </p>
-                    <p><strong>🚗</strong> Парковка біля входу в ліс</p>
-                    <p><strong>🚶‍♂️</strong> Природна стежка в сосновому лісі</p>
-                    <p><strong>🚲</strong> Підходить для маунтін-байку</p>
-               </div>
-
-
-               <!-- 10. Prieuré Saint-Michel de Grandmont -->
-               <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">10. Prieuré Saint-Michel de Grandmont</h2>
-                    <img src="img/10_Prieuré_Saint-Michel_de_Grandmont.png"
-                         class="rounded-lg w-full mb-4 shadow" alt="Prieuré Saint-Michel de Grandmont">
-                    <p><strong>📍</strong> <a href="https://maps.app.goo.gl/qh7JuhPVJs5KeSoT8"
-                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-                    <p><strong>🚗</strong> Парковка біля входу</p>
-                    <p><strong>🚶‍♂️</strong> Історична прогулянка</p>
-                    <p><strong>🚲</strong> Lodève Vélos</p>
-               </div>
-
-          </div>
-     </div>
-
-     <script>
-          const map = L.map('map').setView([43.611, 3.877], 9);
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-               attribution: '© OpenStreetMap contributors'
-          }).addTo(map);
-
-          [
-               ["Cirque de Mourèze", 43.6187, 3.3365],
-               ["Canal du Midi", 43.5904, 3.8955],
-               ["Étang du Méjean", 43.5514, 3.9062],
-               ["Étangs Palavasiens", 43.5309, 3.9151],
-               ["Gorges d'Héric", 43.5826, 2.9337],
-               ["Lac du Salagou", 43.6521, 3.3874],
-               ["Pic Saint-Loup", 43.7774, 3.8502],
-               ["Les Cascades de la Vis", 43.8847, 3.5767],
-               ["Bois de Saint-Sauveur", 43.7545, 3.5309],
-               ["Prieuré Saint-Michel de Grandmont", 43.6302, 3.3163],
-          ].forEach(([name, lat, lng]) => {
-               L.marker([lat, lng]).addTo(map).bindPopup(`<strong>${name}</strong>`);
-          });
-     </script>
+      // 🌙 Перемикач теми за годиною
+      const hour = new Date().getHours();
+      if (hour >= 8 && hour < 19) {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('bg-gray-100', 'text-gray-900');
+      } else {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('bg-gray-100', 'text-gray-900');
+        document.documentElement.classList.add('bg-gray-900', 'text-white');
+      }
+    });
+  </script>
 </body>
 
 </html>
