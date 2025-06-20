@@ -1,168 +1,177 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10 живописних місць біля Монпельє</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>10 живописних місць біля Монпельє</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
+
 <body class="bg-gray-100 text-gray-900 font-sans">
-  <div class="max-w-6xl mx-auto px-4 py-6">
-    <h1 class="text-3xl md:text-5xl font-bold text-center text-blue-800 mb-6">
-      🏞 10 живописних місць біля Монпельє
-    </h1>
+     <div class="max-w-6xl mx-auto px-4 py-6">
+          <h1 class="text-3xl md:text-5xl font-bold text-center text-blue-800 mb-6">
+               🏞 10 живописних місць біля Монпельє
+          </h1>
 
-    <!-- Інтерактивна мапа -->
-    <div id="map" class="w-full h-[400px] rounded-xl shadow mb-8"></div>
+          <!-- Інтерактивна мапа -->
+          <div id="map" class="w-full h-[400px] rounded-xl shadow mb-8"></div>
 
-    <!-- Список локацій -->
-    <div class="space-y-12">
+          <!-- Список локацій -->
+          <div class="space-y-12">
 
-      <!-- 1. Cirque de Mourèze -->
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-2xl text-blue-700 font-semibold mb-2">1. Cirque de Mourèze</h2>
-        <img src="img/1_Cirque_de_Moureze.png"
-             class="rounded-lg w-full mb-4 shadow" alt="Cirque de Moureze">
-        <p><strong>📍</strong> <a href="https://maps.app.goo.gl/JoVH89HN7mmGMmSP9"
-             class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-        <p><strong>🚗</strong> Парковка біля входу</p>
-        <p><strong>🚶‍♂️</strong> Кам’янистий маршрут зі скелями</p>
-        <p><strong>🚲</strong> Оренда в Clermont‑l’Hérault</p>
-      </div>
+               <!-- 1. Cirque de Mourèze -->
+               <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">1. Cirque de Mourèze</h2>
+                    <img src="img/1_Cirque_de_Moureze.png" class="rounded-lg w-full mb-4 shadow"
+                         alt="Cirque de Moureze">
+                    <p><strong>📍</strong> <a href="https://maps.app.goo.gl/JoVH89HN7mmGMmSP9"
+                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
+                    <p><strong>🚗</strong> Парковка біля входу</p>
+                    <p><strong>🚶‍♂️</strong> Кам’янистий маршрут зі скелями</p>
+                    <p><strong>🚲</strong> Оренда в Clermont‑l’Hérault</p>
+               </div>
 
-      <!-- 2. Canal du Midi -->
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-2xl text-blue-700 font-semibold mb-2">2. Canal du Midi</h2>
-        <img src="https://images.unsplash.com/photo-1552531167-40b8e9d09d72?fit=crop&w=800&q=80"
-             class="rounded-lg w-full mb-4 shadow" alt="Canal du Midi">
-        <p><strong>📍</strong> <a href="https://www.google.com/maps/place/Canal+du+Midi/@43.5904,3.8955,14z"
-             class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-        <p><strong>🚗</strong> Парковка Port Marianne</p>
-        <p><strong>🚶‍♂️</strong> Прогулянка вздовж каналу</p>
-        <p><strong>🚲</strong> Smile Ebike (Монпельє)</p>
-      </div>
+               <!-- 2. Canal du Midi -->
+               <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">2. Canal du Midi</h2>
+                    <img src="img/2_Canal_du_Midi.png" class="rounded-lg w-full mb-4 shadow" alt="Canal du Midi">
+                    <p><strong>📍</strong> <a href="https://www.google.com/maps/place/Canal+du+Midi/@43.5904,3.8955,14z"
+                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
+                    <p><strong>🚗</strong> Парковка Port Marianne</p>
+                    <p><strong>🚶‍♂️</strong> Прогулянка вздовж каналу</p>
+                    <p><strong>🚲</strong> Smile Ebike (Монпельє)</p>
+               </div>
 
-      <!-- 3. Étang du Méjean -->
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-2xl text-blue-700 font-semibold mb-2">3. Étang du Méjean</h2>
-        <img src="https://images.unsplash.com/photo-1571061204861-6e2b5c72e5b5?fit=crop&w=800&q=80"
-             class="rounded-lg w-full mb-4 shadow" alt="Étang du Méjean">
-        <p><strong>📍</strong> <a href="https://www.google.com/maps/place/%C3%89tang+du+M%C3%A9jean/@43.5514,3.9062,15z"
-             class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-        <p><strong>🚗</strong> Maison de la Nature</p>
-        <p><strong>🚶‍♂️</strong> Дерев’яні містки через болота</p>
-        <p><strong>🚲</strong> Rent a Bike Carnon</p>
-      </div>
+               <!-- 3. Étang du Méjean -->
+               <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">3. Étang du Méjean</h2>
+                    <img src="img/3_Étang_du_Méjean.png" class="rounded-lg w-full mb-4 shadow" alt="Étang du Méjean">
+                    <p><strong>📍</strong> <a
+                              href="https://www.google.com/maps/place/%C3%89tang+du+M%C3%A9jean/@43.5514,3.9062,15z"
+                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
+                    <p><strong>🚗</strong> Maison de la Nature</p>
+                    <p><strong>🚶‍♂️</strong> Дерев’яні містки через болота</p>
+                    <p><strong>🚲</strong> Rent a Bike Carnon</p>
+               </div>
 
-      <!-- 4. Étangs Palavasiens -->
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-2xl text-blue-700 font-semibold mb-2">4. Étangs Palavasiens</h2>
-        <img src="https://images.unsplash.com/photo-1571091655789-8a95a6769fbc?fit=crop&w=800&q=80"
-             class="rounded-lg w-full mb-4 shadow" alt="Étangs Palavasiens">
-        <p><strong>📍</strong> <a href="https://www.google.com/maps/place/%C3%89tangs+Palavasiens/@43.5309,3.9151,14z"
-             class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-        <p><strong>🚗</strong> Парковка біля Cabanes de Pérols</p>
-        <p><strong>🚶‍♂️</strong> Набережні, огляд птахів</p>
-        <p><strong>🚲</strong> Palavas Location Vélo</p>
-      </div>
+               <!-- 4. Étangs Palavasiens -->
+               <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">4. Étangs Palavasiens</h2>
+                    <img src="img/4_Étangs_Palavasiens.png" class="rounded-lg w-full mb-4 shadow"
+                         alt="Étangs Palavasiens">
+                    <p><strong>📍</strong> <a
+                              href="https://www.google.com/maps/place/%C3%89tangs+Palavasiens/@43.5309,3.9151,14z"
+                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
+                    <p><strong>🚗</strong> Парковка біля Cabanes de Pérols</p>
+                    <p><strong>🚶‍♂️</strong> Набережні, огляд птахів</p>
+                    <p><strong>🚲</strong> Palavas Location Vélo</p>
+               </div>
 
-      <!-- 5. Abbaye de Maguelone -->
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-2xl text-blue-700 font-semibold mb-2">5. Abbaye de Maguelone</h2>
-        <img src="https://images.unsplash.com/photo-1556870052-0b4c8acd4f5d?fit=crop&w=800&q=80"
-             class="rounded-lg w-full mb-4 shadow" alt="Abbaye de Maguelone">
-        <p><strong>📍</strong> <a href="https://maps.app.goo.gl/asx8eRTKpbo7UXDq9"
-             class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-        <p><strong>🚗</strong> Grand parking де Cathédrale</p>
-        <p><strong>🚶‍♂️</strong> Прогулянка до моря, історичний маршрут</p>
-        <p><strong>🚲</strong> Maguelone Vélos</p>
-      </div>
+               <!-- 5. Gorges d'Héric -->
+               <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">5. Gorges d'Héric</h2>
+                    <img src="img/5_Gorges_d_Heric.png" class="rounded-lg w-full mb-4 shadow" alt="Gorges d'Héric">
+                    <p><strong>📍</strong> <a href="https://maps.app.goo.gl/4ssGE9HaHeAVDnPH6"
+                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
+                    <p><strong>🚗</strong> Parking Héric</p>
+                    <p><strong>🚶‍♂️</strong> Ущелина, хайкінг серед водоспадів</p>
+                    <p><strong>🚲</strong> Loueurs à Mons-la-Trivalle</p>
+               </div>
 
-      <!-- 6. Lac du Salagou -->
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-2xl text-blue-700 font-semibold mb-2">6. Lac du Salagou</h2>
-        <img src="https://images.unsplash.com/photo-1543759671-50b727eea09c?fit=crop&w=800&q=80"
-             class="rounded-lg w-full mb-4 shadow" alt="Lac du Salagou">
-        <p><strong>📍</strong> <a href="https://www.google.com/maps/place/Lac+du+Salagou/@43.6521,3.3874,13z"
-             class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-        <p><strong>🚗</strong> Les Vailhés</p>
-        <p><strong>🚶‍♂️</strong> Прогулянки та веломаршрути</p>
-        <p><strong>🚲</strong> Ozone VTT</p>
-      </div>
 
-      <!-- 7. Pic Saint-Loup -->
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-2xl text-blue-700 font-semibold mb-2">7. Pic Saint-Loup</h2>
-        <img src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?fit=crop&w=800&q=80"
-             class="rounded-lg w-full mb-4 shadow" alt="Pic Saint-Loup">
-        <p><strong>📍</strong> <a href="https://www.google.com/maps/place/Pic+Saint-Loup/@43.7774,3.8502,13z"
-             class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-        <p><strong>🚗</strong> Парковка Saint-Clément</p>
-        <p><strong>🚶‍♂️</strong> Підйом 1–2 години, панорама</p>
-        <p><strong>🚲</strong> Smile Ebike</p>
-      </div>
+               <!-- 6. Lac du Salagou -->
+               <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">6. Lac du Salagou</h2>
+                    <img src="img/6_Lac_du_Salagou.png" class="rounded-lg w-full mb-4 shadow" alt="Lac du Salagou">
+                    <p><strong>📍</strong> <a
+                              href="https://www.google.com/maps/place/Lac+du+Salagou/@43.6521,3.3874,13z"
+                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
+                    <p><strong>🚗</strong> Les Vailhés</p>
+                    <p><strong>🚶‍♂️</strong> Прогулянки та веломаршрути</p>
+                    <p><strong>🚲</strong> Ozone VTT</p>
+               </div>
 
-      <!-- 8. Montagne de l’Hortus -->
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-2xl text-blue-700 font-semibold mb-2">8. Montagne de l’Hortus</h2>
-        <img src="https://images.unsplash.com/photo-1529973565459-a12a6422884f?fit=crop&w=800&q=80"
-             class="rounded-lg w-full mb-4 shadow" alt="Montagne de l’Hortus">
-        <p><strong>📍</strong> <a href="https://www.google.com/maps/place/Montagne+de+l’Hortus/@43.7806,3.8767,14z"
-             class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-        <p><strong>🚗</strong> Парковка біля виноробні</p>
-        <p><strong>🚶‍♂️</strong> Панорамна стежка</p>
-        <p><strong>🚲</strong> Smile Ebike</p>
-      </div>
+               <!-- 7. Pic Saint-Loup -->
+               <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">7. Pic Saint-Loup</h2>
+                    <img src="img/7_Pic_Saint-Loup.png" class="rounded-lg w-full mb-4 shadow" alt="Pic Saint-Loup">
+                    <p><strong>📍</strong> <a
+                              href="https://www.google.com/maps/place/Pic+Saint-Loup/@43.7774,3.8502,13z"
+                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
+                    <p><strong>🚗</strong> Парковка Saint-Clément</p>
+                    <p><strong>🚶‍♂️</strong> Підйом 1–2 години, панорама</p>
+                    <p><strong>🚲</strong> Smile Ebike</p>
+               </div>
 
-      <!-- 9. Forêt de Bouzigues -->
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-2xl text-blue-700 font-semibold mb-2">9. Forêt de Bouzigues</h2>
-        <img src="https://images.unsplash.com/photo-1599394813054-a7b7a3d30b37?fit=crop&w=800&q=80"
-             class="rounded-lg w-full mb-4 shadow" alt="Forêt de Bouzigues">
-        <p><strong>📍</strong> <a href="https://www.google.com/maps/place/Bouzigues/@43.4434,3.6625,14z"
-             class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-        <p><strong>🚗</strong> Парковка при в’їзді</p>
-        <p><strong>🚶‍♂️</strong> Лісові стежки</p>
-        <p><strong>🚲</strong> Vélocité (Sète)</p>
-      </div>
+               <!-- 8. Les Cascades de la Vis -->
+               <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">8. Les Cascades de la Vis</h2>
+                    <img src="img/8_Les_Cascades_de_la_Vis.png" class="rounded-lg w-full mb-4 shadow"
+                         alt="Les Cascades de la Vis">
+                    <p><strong>📍</strong>
+                         <a href="https://www.google.com/maps/place/Les+Cascades+de+la+Vis/@43.8847,3.5767,15z"
+                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a>
+                    </p>
+                    <p><strong>🚗</strong> Парковка біля Saint-Laurent-le-Minier</p>
+                    <p><strong>🚶‍♂️</strong> Прогулянка до водоспадів та купання</p>
+                    <p><strong>🚲</strong> Велодоріжки в напрямку Ganges</p>
+               </div>
 
-      <!-- 10. Prieuré Saint-Michel de Grandmont -->
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-2xl text-blue-700 font-semibold mb-2">10. Prieuré Saint-Michel de Grandmont</h2>
-        <img src="https://images.unsplash.com/photo-1594041685813-79a97726b357?fit=crop&w=800&q=80"
-             class="rounded-lg w-full mb-4 shadow" alt="Prieuré Saint-Michel de Grandmont">
-        <p><strong>📍</strong> <a href="https://maps.app.goo.gl/qh7JuhPVJs5KeSoT8"
-             class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
-        <p><strong>🚗</strong> Парковка біля входу</p>
-        <p><strong>🚶‍♂️</strong> Історична прогулянка</p>
-        <p><strong>🚲</strong> Lodève Vélos</p>
-      </div>
 
-    </div>
-  </div>
+               <!-- 9. Bois de Saint-Sauveur -->
+               <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">9. Bois de Saint-Sauveur</h2>
+                    <img src="img/9_Le_Bois_de_Saint-Sauveur.png" class="rounded-lg w-full mb-4 shadow"
+                         alt="Bois de Saint-Sauveur">
+                    <p><strong>📍</strong>
+                         <a href="https://www.google.com/maps/place/Bois+de+Saint-Sauveur/@43.7545,3.5309,15z"
+                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a>
+                    </p>
+                    <p><strong>🚗</strong> Парковка біля входу в ліс</p>
+                    <p><strong>🚶‍♂️</strong> Природна стежка в сосновому лісі</p>
+                    <p><strong>🚲</strong> Підходить для маунтін-байку</p>
+               </div>
 
-  <script>
-    const map = L.map('map').setView([43.611, 3.877], 9);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
 
-    [
-      ["Cirque de Mourèze", 43.6187, 3.3365],
-      ["Canal du Midi", 43.5904, 3.8955],
-      ["Étang du Méjean", 43.5514, 3.9062],
-      ["Étangs Palavasiens", 43.5309, 3.9151],
-      ["Abbaye de Maguelone", 43.5182, 3.8872],
-      ["Lac du Salagou", 43.6521, 3.3874],
-      ["Pic Saint-Loup", 43.7774, 3.8502],
-      ["Montagne de l’Hortus", 43.7806, 3.8767],
-      ["Forêt de Bouzigues", 43.4434, 3.6625],
-      ["Prieuré Saint-Michel de Grandmont", 43.6302, 3.3163],
-    ].forEach(([name, lat, lng]) => {
-      L.marker([lat, lng]).addTo(map).bindPopup(`<strong>${name}</strong>`);
-    });
-  </script>
+               <!-- 10. Prieuré Saint-Michel de Grandmont -->
+               <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl text-blue-700 font-semibold mb-2">10. Prieuré Saint-Michel de Grandmont</h2>
+                    <img src="img/10_Prieuré_Saint-Michel_de_Grandmont.png"
+                         class="rounded-lg w-full mb-4 shadow" alt="Prieuré Saint-Michel de Grandmont">
+                    <p><strong>📍</strong> <a href="https://maps.app.goo.gl/qh7JuhPVJs5KeSoT8"
+                              class="text-blue-600 underline" target="_blank">Переглянути на мапі</a></p>
+                    <p><strong>🚗</strong> Парковка біля входу</p>
+                    <p><strong>🚶‍♂️</strong> Історична прогулянка</p>
+                    <p><strong>🚲</strong> Lodève Vélos</p>
+               </div>
+
+          </div>
+     </div>
+
+     <script>
+          const map = L.map('map').setView([43.611, 3.877], 9);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+               attribution: '© OpenStreetMap contributors'
+          }).addTo(map);
+
+          [
+               ["Cirque de Mourèze", 43.6187, 3.3365],
+               ["Canal du Midi", 43.5904, 3.8955],
+               ["Étang du Méjean", 43.5514, 3.9062],
+               ["Étangs Palavasiens", 43.5309, 3.9151],
+               ["Gorges d'Héric", 43.5826, 2.9337],
+               ["Lac du Salagou", 43.6521, 3.3874],
+               ["Pic Saint-Loup", 43.7774, 3.8502],
+               ["Les Cascades de la Vis", 43.8847, 3.5767],
+               ["Bois de Saint-Sauveur", 43.7545, 3.5309],
+               ["Prieuré Saint-Michel de Grandmont", 43.6302, 3.3163],
+          ].forEach(([name, lat, lng]) => {
+               L.marker([lat, lng]).addTo(map).bindPopup(`<strong>${name}</strong>`);
+          });
+     </script>
 </body>
+
 </html>
